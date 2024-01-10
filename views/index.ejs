@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Milligram CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="js/main.js" defer></script>
+    <title>Hem | EJS-Test-1</title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>EJS-Test-1</h1>
+        <%- include('partials/main-menu'); %>
+            <p>Det här är startsidan...</p>
+
+            <h2>Lägg till användare</h2>
+            <form action="/add" method="post">
+                <% if (locals.error) { %>
+                    <p class="error">
+                        <%= locals.error %>
+                    </p>
+                    <% } %>
+                        <label for="name">Namn</label>
+                        <input type="text" name="name" id="name">
+                        <label for="age">Ålder</label>
+                        <input type="number" name="age" id="age">
+                        <button type="submit">Lägg till</button>
+            </form>
+
+            <h2>Användare</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Namn</th>
+                        <th>Ålder</th>
+                        <th>Skapad</th>
+                        <td>Edit/Delete</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% locals.users.forEach(function(user) { %>
+                        <tr>
+                            <td>
+                                <%= user.id %>
+                            </td>
+                            <td>
+                                <%= user.name %>
+                            </td>
+                            <td>
+                                <%= user.age %>
+                            </td>
+                            <td>
+                                <%= user.created %>
+                            </td>
+                            <td>
+                                <a href="/edit/<%= user.id %>">Ändra</a>&nbsp;|&nbsp;<a href="/delete/<%= user.id %>">Ta
+                                    bort</a>
+                            </td>
+                        </tr>
+                        <% }); %>
+                </tbody>
+            </table>
+    </div>
+</body>
+
+</html>
